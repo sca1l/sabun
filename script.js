@@ -28,6 +28,25 @@ function init(){
   start();
 }
 
+function updatePath(){
+  var form = document.getElementById("setting");
+  
+  var foregroundPath = form.path_img0.value;
+  var backgroundPath = form.path_img1.value;
+  
+  var order = form.order.value;
+  if(order == "reverse"){
+    var tmp = foregroundPath;
+    foregroundPath = backgroundPath;
+    backgroundPath = tmp;
+  }
+  
+  //前面の更新
+  img.src = foregroundPath;
+  
+  //背面の更新
+  canvas.style.background = backgroundPath;
+}
 
 function start(){
   interval = setInterval(process, 25);
