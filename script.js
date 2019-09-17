@@ -10,14 +10,13 @@ function init(){
   canvas = document.getElementById("gamecanvas");
   ctx = canvas.getContext("2d");
   
-  img.src = "pp0.jpg";
+  img.src = "pp0.png";
   mask.src = "mask2.png";
   
   img.addEventListener("load",function(e){
     canvas.width = img.width;
     canvas.height = img.height;
   });
-  
   
   canvas.addEventListener('mousemove', function(e) {
     var rect = canvas.getBoundingClientRect();
@@ -29,6 +28,7 @@ function init(){
 }
 
 function updatePath(){
+  console.log("updatePath");
   var form = document.getElementById("setting");
   
   var foregroundPath = form.path_img0.value;
@@ -45,7 +45,7 @@ function updatePath(){
   img.src = foregroundPath;
   
   //îwñ ÇÃçXêV
-  canvas.style.background = backgroundPath;
+  canvas.style.background = "url(\'" + backgroundPath + "\')";
 }
 
 function start(){
@@ -72,6 +72,12 @@ function keyReleased(e){
 
 function process(){
   draw();
+  
+  log();
+}
+
+function log(){
+  console.log(img.src);
 }
 
 function draw(){

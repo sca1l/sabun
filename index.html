@@ -10,17 +10,17 @@
   <body onload="init()">
     <main>
       <section>
-        <form id="setting" onsubmit="updatePath">
-          画像1:<input type="text" name="path_img0" value="pp0.jpg" size="40"></br>
-          画像2:<input type="text" name="path_img1" value="pp0.jpg" size="40"></br>
+        <form id="setting">
+          画像1:<input type="text" name="path_img0" value="pp0.png" size="40"></br>
+          画像2:<input type="text" name="path_img1" value="pp1.png" size="40"></br>
           <input type="radio" name="order" value="natural" checked="checked">画像1を全面に
           <input type="radio" name="order" value="reverse">画像2を前面に</br>
-          <input type="submit" value="送信">
+          <input type="button" value="更新" onclick="updatePath()">
 </p>
         </form>
       </section>
       <section>
-        <canvas id="gamecanvas" width="600" height="750" style="background: url('pp1.jpg')">
+        <canvas id="gamecanvas" width="600" height="750">
         </canvas>
       </section>
     </main>
