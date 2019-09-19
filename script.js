@@ -4,7 +4,6 @@ var interval;
 var cx,cy;
 var img = new Image();
 var mask = new Image();
-var complete = 0;
 
 function init(){
   canvas = document.getElementById("gamecanvas");
@@ -52,24 +51,6 @@ function start(){
   interval = setInterval(process, 25);
 }
 
-function keyPressed(e){
-  if(e.key == "Right" || e.key == "ArrowRight") {
-    rightPressed = true;
-  }
-  if(e.key == "Left" || e.key == "ArrowLeft") {
-    leftPressed = true;
-  }
-}
-
-function keyReleased(e){
-  if(e.key == "Right" || e.key == "ArrowRight") {
-    rightPressed = false;
-  }
-  if(e.key == "Left" || e.key == "ArrowLeft") {
-    leftPressed = false;
-  }
-}
-
 function process(){
   draw();
   
@@ -77,12 +58,10 @@ function process(){
 }
 
 function log(){
-  console.log(img.src);
+  //console.log(img.src);
 }
 
 function draw(){
-  //drawString("aaaa","#777",50,50,20);
-  
   ctx.save();
   ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
   
@@ -91,12 +70,4 @@ function draw(){
   ctx.drawImage(mask, cx-mask.width/2, cy-mask.height/2);
   
   ctx.restore();
-}
-
-function drawString(str, fillStyle, x, y, size){
-  ctx.font = size + 'pt sans-serif';
-  ctx.fillStyle = fillStyle;
-  ctx.textAlign = "left";
-  ctx.textBaseline = "top";
-  ctx.fillText(str, x, y);
 }
