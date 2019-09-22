@@ -9,7 +9,7 @@ function init(){
   canvas = document.getElementById("gamecanvas");
   ctx = canvas.getContext("2d");
   
-  img.src = "pp0.png";
+  img.src = "p0.png";
   mask.src = "mask2.png";
   
   img.addEventListener("load",function(e){
