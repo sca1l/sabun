@@ -22,25 +22,39 @@ function init(){
   
   mode = 0;
   
-  //‘S–Ê‰æ‘œ‚Ì•‚Æ‚‚³‚ğƒLƒƒƒ“ƒoƒX‚É“K—p
+  //å…¨é¢ç”»åƒã®å¹…ã¨é«˜ã•ã‚’ã‚­ãƒ£ãƒ³ãƒã‚¹ã«é©ç”¨
   img.addEventListener("load",function(e){
     canvas.width = img.width;
     canvas.height = img.height;
   });
   
-  //ƒ}ƒEƒX‚ÌÀ•WXV
+  //ãƒã‚¦ã‚¹ã®åº§æ¨™æ›´æ–°
   canvas.addEventListener('mousemove', function(e) {
     var rect = canvas.getBoundingClientRect();
     cx = e.clientX-rect.left;
     cy = e.clientY-rect.top;
   }, false);
   
-  //€”õI‚í‚èAƒ‹[ƒv‚ÌƒXƒ^[ƒg
+  //ãƒ¢ãƒ¼ãƒ‰æ›´æ–°ï¼ˆå‰å›ã®ãŒæ®‹ã‚‹ãŸã‚ï¼‰
+  updateMode();
+  //æº–å‚™çµ‚ã‚ã‚Šã€ãƒ«ãƒ¼ãƒ—ã®ã‚¹ã‚¿ãƒ¼ãƒˆ
   interval = setInterval(process, 25);
 }
 
+function fileChoosed(number){
+  var form = document.getElementById("setting");
+  var filePath;
+  if(number==0){
+    filePath = window.URL.createObjectURL(form.file0.files[0]);
+    form.path_img0.value = filePath;
+  }else{
+    filePath = window.URL.createObjectURL(form.file1.files[0]);
+    form.path_img1.value = filePath;
+  }
+}
+
 function updatePath(){
-  console.log("updatePath");
+  //console.log("updatePath");
   var form = document.getElementById("setting");
   
   var foregroundPath = form.path_img0.value;
@@ -53,16 +67,16 @@ function updatePath(){
     backgroundPath = tmp;
   }
   
-  //‘O–Ê‚ÌXV
+  //å‰é¢ã®æ›´æ–°
   img.src = foregroundPath;
   
-  //”w–Ê‚ÌXV
+  //èƒŒé¢ã®æ›´æ–°
   canvas.style.background = "url(\'" + backgroundPath + "\')";
 }
 
 function updateMode(){
   var form = document.getElementById("setting");
-  //•\¦ƒ‚[ƒh‚ÌØ‚è‘Ö‚¦
+  //è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰ã®åˆ‡ã‚Šæ›¿ãˆ
   var modeStr = form.mode.value;
   mode = modeList.indexOf(modeStr);
 }
@@ -79,11 +93,11 @@ function log(){
 }
 
 function draw(){
-  //•`‰æó‘Ô‚Ì•Û‘¶‚Æ‘S–Ê‰æ‘œ‚Ì•`‰æ
+  //æç”»çŠ¶æ…‹ã®ä¿å­˜ã¨å…¨é¢ç”»åƒã®æç”»
   ctx.save();
   ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
   
-  //ƒ}ƒXƒN‚Ìƒ‚[ƒhiŠÛ“Š‚°j
+  //ãƒã‚¹ã‚¯ã®ãƒ¢ãƒ¼ãƒ‰ï¼ˆä¸¸æŠ•ã’ï¼‰
   switch(mode){
     case HEART:
       maskHeart();
@@ -102,7 +116,7 @@ function draw(){
       break;
   }
   
-  //•`‰æó‘Ô‚Ì•œŒ³
+  //æç”»çŠ¶æ…‹ã®å¾©å…ƒ
   ctx.restore();
 }
 

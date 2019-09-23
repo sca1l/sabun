@@ -9,3 +9,15 @@ canvas {
 	cursor: none;
 	background: url('p1.png');
 }
+
+.inputFile {
+	display: inline-block;
+	font-size: 90%;
+	padding: 1px 3px;
+	color: #000;
+	background: #ddd;
+	cursor: pointer;
+}
+.inputFile input {
+	display: none;
+}
