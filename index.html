@@ -10,20 +10,23 @@
   <body onload="init()">
     <main>
       <section>
-        <form id="setting">
-          画像1:<input type="text" name="path_img0" value="p0.png" size="40"><label class="inputFile">選択<input type="file" name="file0" onchange="fileChoosed(0)" accept="image/png, image/jpeg"></label></br>
-          画像2:<input type="text" name="path_img1" value="p1.png" size="40"><label class="inputFile">選択<input type="file" name="file1" onchange="fileChoosed(1)" accept="image/png, image/jpeg"></label></br>
-          <input type="radio" name="order" value="natural" checked="checked">画像1を前面に
-          <input type="radio" name="order" value="reverse">画像2を前面に</br>
-          <input type="button" value="画像の更新" onclick="updatePath()">
-</p>
-          モード:</br>
-          <input type="radio" name="mode" onchange="updateMode()" value="heart" checked="checked">[heart]
-          <input type="radio" name="mode" onchange="updateMode()" value="top2mouse">top→mouse
-          <input type="radio" name="mode" onchange="updateMode()" value="bottom2mouse">bottom→mouse
-          <input type="radio" name="mode" onchange="updateMode()" value="left2mouse">left→mouse
-          <input type="radio" name="mode" onchange="updateMode()" value="right2mouse">right→mouse</br>
-        </form>
+        <details>
+          <summary>設定</summary>
+          <form id="setting">
+            画像1:<input type="text" name="path_img0" value="p0.png" size="40"><label class="inputFile">選択<input type="file" name="file0" onchange="fileChoosed(0)" accept="image/png, image/jpeg"></label></br>
+            画像2:<input type="text" name="path_img1" value="p1.png" size="40"><label class="inputFile">選択<input type="file" name="file1" onchange="fileChoosed(1)" accept="image/png, image/jpeg"></label></br>
+            <input type="radio" name="order" value="natural" checked="checked">画像1を前面に
+            <input type="radio" name="order" value="reverse">画像2を前面に</br>
+            <input type="button" value="画像の更新" onclick="updatePath()">
+            
+            モード:</br>
+            <input type="radio" name="mode" onchange="updateMode()" value="heart" checked="checked">[heart]
+            <input type="radio" name="mode" onchange="updateMode()" value="top2mouse">top→mouse
+            <input type="radio" name="mode" onchange="updateMode()" value="bottom2mouse">bottom→mouse
+            <input type="radio" name="mode" onchange="updateMode()" value="left2mouse">left→mouse
+            <input type="radio" name="mode" onchange="updateMode()" value="right2mouse">right→mouse</br>
+          </form>
+        </details>
       </section>
       <section>
         <canvas id="gamecanvas" width="600" height="750">
