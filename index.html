@@ -15,8 +15,14 @@
           画像2:<input type="text" name="path_img1" value="p1.png" size="40"></br>
           <input type="radio" name="order" value="natural" checked="checked">画像1を前面に
           <input type="radio" name="order" value="reverse">画像2を前面に</br>
-          <input type="button" value="更新" onclick="updatePath()">
+          <input type="button" value="画像の更新" onclick="updatePath()">
 </p>
+          モード:</br>
+          <input type="radio" name="mode" onchange="updateMode()" value="heart" checked="checked">[heart]
+          <input type="radio" name="mode" onchange="updateMode()" value="top2mouse">top→mouse
+          <input type="radio" name="mode" onchange="updateMode()" value="bottom2mouse">bottom→mouse
+          <input type="radio" name="mode" onchange="updateMode()" value="left2mouse">left→mouse
+          <input type="radio" name="mode" onchange="updateMode()" value="right2mouse">right→mouse</br>
         </form>
       </section>
       <section>
