@@ -3,15 +3,19 @@ var interval;
 
 var cx,cy;
 var mode;
-var modeList = ["heart","top2mouse","bottom2mouse","left2mouse","right2mouse"];
+var modeList = ["heart","star","top2mouse","bottom2mouse","left2mouse","right2mouse"];
 const HEART = 0;
-const TOP2MOUSE = 1;
-const BOTTOM2MOUSE = 2;
-const LEFT2MOUSE = 3;
-const RIGHT2MOUSE = 4;
+const STAR = 1;
+const TOP2MOUSE = 2;
+const BOTTOM2MOUSE = 3;
+const LEFT2MOUSE = 4;
+const RIGHT2MOUSE = 5;
 
 var img = new Image();
 var heartImg = new Image();
+var starImg = new Image();
+
+var maskScale = 0.5;
 
 function init(){
   canvas = document.getElementById("gamecanvas");
@@ -19,6 +23,7 @@ function init(){
   
   img.src = "p0.png";
   heartImg.src = "mask2.png";
+  starImg.src = "mask1.png";
   
   mode = 0;
   
@@ -100,7 +105,10 @@ function draw(){
   //マスクのモード（丸投げ）
   switch(mode){
     case HEART:
-      maskHeart();
+      maskHollow(heartImg);
+      break;
+    case STAR:
+      maskHollow(starImg);
       break;
     case TOP2MOUSE:
       maskTop2mouse();
@@ -120,9 +128,9 @@ function draw(){
   ctx.restore();
 }
 
-function maskHeart(){
+function maskHollow(maskImg){
   ctx.globalCompositeOperation = 'destination-out';
-  ctx.drawImage(heartImg, cx-heartImg.width/2, cy-heartImg.height/2);
+  ctx.drawImage(maskImg, cx-maskImg.width/2*maskScale, cy-maskImg.height/2*maskScale, maskImg.width*maskScale, maskImg.height*maskScale);
 }
 
 function maskTop2mouse(){
