@@ -17,6 +17,42 @@ var starImg = new Image();
 
 var maskScale = 0.5;
 
+var innerHeight,innerWidth;
+
+
+
+
+function getInnerSize(){
+  innerHeight = window.innerHeight;
+  innerWidth = window.innerWidth;
+}
+
+function onLoadImg(){
+  //innerHeightとinnerWidthを使うので、
+  //先に設定メニューを閉じる
+  var details = document.getElementById("details");
+  details.removeAttribute("open");
+  
+  getInnerSize();
+  
+  imageAspectRatio = img.height/img.width;
+  innerAspectRatio = innerHeight/innerWidth;
+  console.log("img:" + imageAspectRatio + ", inr:" + innerAspectRatio);
+  
+  if(imageAspectRatio > innerAspectRatio){
+    //高さに合わせる
+    canvas.height = innerHeight;
+    canvas.width = innerHeight/imageAspectRatio;
+    console.log(innerHeight);
+  }else{
+    //幅に合わせる
+    canvas.width = innerWidth;
+    canvas.height = innerWidth*imageAspectRatio;
+  }
+  //canvas.width = window.innerWidth * window.devicePixelRatio;
+  //canvas.height = window.innerHeight * window.devicePixelRatio;
+}
+
 function init(){
   canvas = document.getElementById("gamecanvas");
   ctx = canvas.getContext("2d");
@@ -27,10 +63,13 @@ function init(){
   
   mode = 0;
   
+  window.addEventListener("resize", function(){
+    getInnerSize();
+  },false);
+  
   //全面画像の幅と高さをキャンバスに適用
   img.addEventListener("load",function(e){
-    canvas.width = img.width;
-    canvas.height = img.height;
+    onLoadImg();
   });
   
   //マウスの座標更新
@@ -42,6 +81,8 @@ function init(){
   
   //モード更新（前回のが残るため）
   updateMode();
+  //表示領域の高さ、幅の取得
+  getInnerSize();
   //準備終わり、ループのスタート
   interval = setInterval(process, 25);
 }
@@ -77,6 +118,7 @@ function updatePath(){
   
   //背面の更新
   canvas.style.background = "url(\'" + backgroundPath + "\')";
+  canvas.style.backgroundSize = "contain";
 }
 
 function updateMode(){
