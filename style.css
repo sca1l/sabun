@@ -5,36 +5,30 @@ html,body{
     margin: 0;
 }
 
-summary {
-	display: block;
-	outline: none;
-	border-bottom: solid 1px #ddd;
+#settingButton {
+	top: 20px;
+	left: 20px;
+	padding: 1em;
+	text-align: center;
+	color: #FFF;
+	position: fixed;
+	z-index: 999;
+	cursor: pointer;
+	background: rgba(0, 0, 0, 0.4);
 }
 
-details {
-	overflow: hidden;
+#settingOverlay{
+	/*display: none;*/
+	width: 100%;
+	height:100%;
+	text-align: center;
+	position: fixed;
+	top: 0;
+	z-index: 100;
+	background: rgba(255, 192, 203, 0.85);
 }
 
-
-details[open] form{
-	animation: openDetail 800ms ease;
-}
-
-@keyframes openDetail {
-  0% {
-    opacity: 0;
-    height: 0;
-    height: 1em;
-  }
-  60%{
-  }
-  100% {
-    opacity: 1;
-    height: 10em;
-  }
-}
-
-form {
+#setting {
 	max-width: 900px;
 	padding: 20px;
 	margin-left: auto;
@@ -42,11 +36,10 @@ form {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	display: block;
-	border: double 1px #222;
 	height: 10em;
 }
 
-canvas {
+#maincanvas {
 	padding-left: 0;
 	padding-right: 0;
 	margin-left: auto;

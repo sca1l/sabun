@@ -20,8 +20,6 @@ var maskScale = 0.5;
 var innerHeight,innerWidth;
 
 
-
-
 function getInnerSize(){
   innerHeight = window.innerHeight;
   innerWidth = window.innerWidth;
@@ -30,8 +28,8 @@ function getInnerSize(){
 function onLoadImg(){
   //innerHeightとinnerWidthを使うので、
   //先に設定メニューを閉じる
-  var details = document.getElementById("details");
-  details.removeAttribute("open");
+  var settingOverlay = document.getElementById("settingOverlay");
+  settingOverlay.style.display = "none";
   
   getInnerSize();
   
@@ -54,7 +52,7 @@ function onLoadImg(){
 }
 
 function init(){
-  canvas = document.getElementById("gamecanvas");
+  canvas = document.getElementById("maincanvas");
   ctx = canvas.getContext("2d");
   
   img.src = "p0.png";
@@ -128,6 +126,15 @@ function updateMode(){
   mode = modeList.indexOf(modeStr);
 }
 
+function toggleOverlay() {
+  var settingOverlay = document.getElementById("settingOverlay");
+  var display = settingOverlay.style.display;
+  if(display != "none"){
+      settingOverlay.style.display = "none";
+  }else{
+      settingOverlay.style.display = "block";
+  }
+}
 
 function process(){
   draw();
