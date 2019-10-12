@@ -75,6 +75,13 @@ function init(){
     cy = e.clientY-rect.top;
   }, false);
   
+  //(スマホ用座標更新)
+  canvas.addEventListener('ontouchmove', function(e) {
+    var rect = canvas.getBoundingClientRect();
+    cx = e.clientX-rect.left;
+    cy = e.clientY-rect.top;
+  }, false);
+  
   //モード更新（前回のが残るため）
   updateMode();
   //表示領域の高さ、幅の取得
