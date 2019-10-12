@@ -52,6 +52,9 @@ function onLoadImg(){
 }
 
 function init(){
+  //スクロールを禁止する
+  document.addEventListener('touchmove', function(e) {e.preventDefault();}, {passive: false});
+  
   canvas = document.getElementById("maincanvas");
   ctx = canvas.getContext("2d");
   
