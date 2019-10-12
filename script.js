@@ -76,7 +76,7 @@ function init(){
   }, false);
   
   //(スマホ用座標更新)
-  canvas.addEventListener('ontouchmove', function(e) {
+  canvas.addEventListener('touchmove', function(e) {
     var rect = canvas.getBoundingClientRect();
     cx = e.clientX-rect.left;
     cy = e.clientY-rect.top;
