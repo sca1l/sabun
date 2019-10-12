@@ -46,12 +46,27 @@ function onLoadImg(){
   resizeCanvas();
 }
 
+function updateCursorPoint(e){
+  var rect = canvas.getBoundingClientRect();
+  cx = e.clientX-rect.left;
+  cy = e.clientY-rect.top;
+}
+
 function init(){
-  //スクロールを禁止する
-  document.addEventListener('touchmove', function(e) {e.preventDefault();}, {passive: false});
-  
   canvas = document.getElementById("maincanvas");
   ctx = canvas.getContext("2d");
+  
+  window.addEventListener('touchmove', function(e) {
+      if(event.target === canvas) {
+        //canvas内ならcx,cyの更新
+        updateCursorPoint();
+      }else{
+        //そうでなければスクロールを禁止
+        e.preventDefault();
+      }
+    },
+    {passive: false}
+  );
   
   img.src = "p0.png";
   heartImg.src = "mask2.png";
@@ -70,16 +85,7 @@ function init(){
   
   //マウスの座標更新
   canvas.addEventListener('mousemove', function(e) {
-    var rect = canvas.getBoundingClientRect();
-    cx = e.clientX-rect.left;
-    cy = e.clientY-rect.top;
-  }, false);
-  
-  //(スマホ用座標更新)
-  canvas.addEventListener('touchmove', function(e) {
-    var rect = canvas.getBoundingClientRect();
-    cx = e.clientX-rect.left;
-    cy = e.clientY-rect.top;
+    updateCursorPoint(e);
   }, false);
   
   //モード更新（前回のが残るため）
