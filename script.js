@@ -17,12 +17,24 @@ var starImg = new Image();
 
 var maskScale = 0.5;
 
-var innerHeight,innerWidth;
 
 
-function getInnerSize(){
-  innerHeight = window.innerHeight;
-  innerWidth = window.innerWidth;
+function resizeCanvas(){
+  var innerHeight = window.innerHeight;
+  var innerWidth = window.innerWidth;
+  
+  imageAspectRatio = img.height/img.width;
+  innerAspectRatio = innerHeight/innerWidth;
+  
+  if(imageAspectRatio > innerAspectRatio){
+    //高さに合わせる
+    canvas.height = innerHeight;
+    canvas.width = innerHeight/imageAspectRatio;
+  }else{
+    //幅に合わせる
+    canvas.width = innerWidth;
+    canvas.height = innerWidth*imageAspectRatio;
+  }
 }
 
 function onLoadImg(){
@@ -31,27 +43,13 @@ function onLoadImg(){
   var settingOverlay = document.getElementById("settingOverlay");
   settingOverlay.style.display = "none";
   
-  getInnerSize();
-  
-  imageAspectRatio = img.height/img.width;
-  innerAspectRatio = innerHeight/innerWidth;
-  console.log("img:" + imageAspectRatio + ", inr:" + innerAspectRatio);
-  
-  if(imageAspectRatio > innerAspectRatio){
-    //高さに合わせる
-    canvas.height = innerHeight;
-    canvas.width = innerHeight/imageAspectRatio;
-    console.log(innerHeight);
-  }else{
-    //幅に合わせる
-    canvas.width = innerWidth;
-    canvas.height = innerWidth*imageAspectRatio;
-  }
-  //canvas.width = window.innerWidth * window.devicePixelRatio;
-  //canvas.height = window.innerHeight * window.devicePixelRatio;
+  resizeCanvas();
 }
 
 function init(){
+  //スクロールを禁止する
+  document.addEventListener('touchmove', function(e) {e.preventDefault();}, {passive: false});
+  
   canvas = document.getElementById("maincanvas");
   ctx = canvas.getContext("2d");
   
@@ -62,7 +60,7 @@ function init(){
   mode = 0;
   
   window.addEventListener("resize", function(){
-    getInnerSize();
+    resizeCanvas();
   },false);
   
   //全面画像の幅と高さをキャンバスに適用
@@ -80,7 +78,7 @@ function init(){
   //モード更新（前回のが残るため）
   updateMode();
   //表示領域の高さ、幅の取得
-  getInnerSize();
+  resizeCanvas();
   //準備終わり、ループのスタート
   interval = setInterval(process, 25);
 }
@@ -98,7 +96,6 @@ function fileChoosed(number){
 }
 
 function updatePath(){
-  //console.log("updatePath");
   var form = document.getElementById("setting");
   
   var foregroundPath = form.path_img0.value;
@@ -137,13 +134,9 @@ function toggleOverlay() {
 }
 
 function process(){
+  //描画
   draw();
   
-  //log();
-}
-
-function log(){
-  console.log(img.src);
 }
 
 function draw(){
