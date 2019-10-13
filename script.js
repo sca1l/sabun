@@ -47,26 +47,35 @@ function onLoadImg(){
 }
 
 function updateCursorPoint(e){
-  var rect = canvas.getBoundingClientRect();
-  cx = e.clientX-rect.left;
-  cy = e.clientY-rect.top;
+  if(!e.pageX){
+    e = event.touches[0];
+  }
+  cx = e.offsetX;
+  cy = e.offsetY;
 }
 
 function init(){
+  var ua =navigator.userAgent;
+  if(ua.indexOf('iPhone') > -1 || ua.indexOf('iPad') > -1 || ua.indexOf('iPod')  > -1){
+    var start = "touchstart";
+    var move  = "touchmove";
+  }else{
+    var start = "mousedown";
+    var move  = "mousemove";
+  }
+  
   canvas = document.getElementById("maincanvas");
   ctx = canvas.getContext("2d");
   
-  window.addEventListener('touchmove', function(e) {
-      if(event.target === canvas) {
-        //canvas内ならcx,cyの更新
-        updateCursorPoint();
-      }else{
-        //そうでなければスクロールを禁止
-        e.preventDefault();
-      }
-    },
-    {passive: false}
-  );
+  //マウスの座標更新
+  canvas.addEventListener(start, function(e) {
+    updateCursorPoint(e);
+  }, false);
+  canvas.addEventListener(move, function(e) {
+    updateCursorPoint(e);
+  }, false);
+  
+  window.addEventListener('touchmove', function(e) {e.preventDefault();},{passive: false});
   
   img.src = "p0.png";
   heartImg.src = "mask2.png";
@@ -82,11 +91,6 @@ function init(){
   img.addEventListener("load",function(e){
     onLoadImg();
   });
-  
-  //マウスの座標更新
-  canvas.addEventListener('mousemove', function(e) {
-    updateCursorPoint(e);
-  }, false);
   
   //モード更新（前回のが残るため）
   updateMode();
