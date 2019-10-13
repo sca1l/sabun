@@ -76,6 +76,8 @@ function init(){
     updateCursorPoint(e);
   }, false);
   
+  window.addEventListener('touchmove', function(e) {e.preventDefault();},{passive: false});
+  
   img.src = "p0.png";
   heartImg.src = "mask2.png";
   starImg.src = "mask1.png";
