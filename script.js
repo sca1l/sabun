@@ -48,7 +48,8 @@ function onLoadImg(){
 
 function updateCursorPoint(e){
   if(!e.pageX){
-    e = event.touches[0];
+    e.preventDefault();
+    e = e.originalEvent.changedTouches[0];
   }
   cx = e.offsetX;
   cy = e.offsetY;
