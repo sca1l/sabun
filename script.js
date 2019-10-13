@@ -48,10 +48,11 @@ function onLoadImg(){
 
 function updateCursorPoint(e){
   if(!e.pageX){
-    e = event.touches[0];
+    e = e.changedTouches[0];
   }
-  cx = e.offsetX;
-  cy = e.offsetY;
+  var rect = canvas.getBoundingClientRect();
+  cx = e.clientX - rect.left;
+  cy = e.clientY - rect.top;
 }
 
 function init(){
