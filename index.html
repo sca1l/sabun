@@ -15,19 +15,34 @@
       <section>
         <div id="settingOverlay">
           <form id="setting">
-            画像1:<input type="text" name="path_img0" value="p0.png" size="40"><label class="inputFile">選択<input type="file" name="file0" onchange="fileChoosed(0)" accept="image/png, image/jpeg"></label></br>
-            画像2:<input type="text" name="path_img1" value="p1.png" size="40"><label class="inputFile">選択<input type="file" name="file1" onchange="fileChoosed(1)" accept="image/png, image/jpeg"></label></br>
+            <span class="explanation">
+              ※URLで画像を指定することができます。</br>
+              また[選択]ボタンを押すことでローカルファイルの選択もできます。</br>
+            </span>
+            
+            画像1:<input type="text" name="path_img0" value="p0.png" size="40">
+            <label class="inputFile">選択<input type="file" name="file0" onchange="fileChoosed(0)" accept="image/png, image/jpeg"></label></br>
+            画像2:<input type="text" name="path_img1" value="p1.png" size="40">
+            <label class="inputFile">選択<input type="file" name="file1" onchange="fileChoosed(1)" accept="image/png, image/jpeg"></label></br>
+            
             <input type="radio" name="order" value="natural" checked="checked">画像1を前面に
             <input type="radio" name="order" value="reverse">画像2を前面に</br>
             <input type="button" value="画像の更新" onclick="updatePath()"></br>
             </br>
             モード:</br>
-            <input type="radio" name="mode" onchange="updateMode()" value="heart" checked="checked">[heart]
-            <input type="radio" name="mode" onchange="updateMode()" value="star">[star]
-            <input type="radio" name="mode" onchange="updateMode()" value="top2mouse">top→mouse
-            <input type="radio" name="mode" onchange="updateMode()" value="bottom2mouse">bottom→mouse
-            <input type="radio" name="mode" onchange="updateMode()" value="left2mouse">left→mouse
+            <input type="radio" name="mode" onchange="updateMode()" value="heart" checked="checked">[heart]</br>
+            <span class="explanation">（ハート形でくり抜きます）</span></br>
+            <input type="radio" name="mode" onchange="updateMode()" value="star">[star]</br>
+            <span class="explanation">（星形でくり抜きます）</span></br>
+            <input type="radio" name="mode" onchange="updateMode()" value="top2mouse">top→mouse</br>
+            <span class="explanation">（画像の上からマウス位置までを非表示）</span></br>
+            <input type="radio" name="mode" onchange="updateMode()" value="bottom2mouse">bottom→mouse</br>
+            <span class="explanation">（画像の下からマウス位置までを非表示）</span></br>
+            <input type="radio" name="mode" onchange="updateMode()" value="left2mouse">left→mouse</br>
+            <span class="explanation">（画像の左からマウス位置までを非表示）</span></br>
             <input type="radio" name="mode" onchange="updateMode()" value="right2mouse">right→mouse</br>
+            <span class="explanation">（画像の右からマウス位置までを非表示）</br>
+            </br>
           </form>
         </div>
       </section>

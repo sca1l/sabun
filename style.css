@@ -6,6 +6,7 @@ html,body{
     overflow: hidden;
 }
 
+
 #settingButton {
 	top: 20px;
 	left: 20px;
@@ -38,6 +39,12 @@ html,body{
 	margin-bottom: 10px;
 	display: block;
 	height: 10em;
+}
+
+.explanation {
+	font-size: 0.6em;
+	padding: 0;
+	color: #454545;
 }
 
 #maincanvas {
