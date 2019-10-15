@@ -47,23 +47,14 @@ function onLoadImg(){
 }
 
 function updateCursorPoint(e){
-  if(!e.pageX){
-    e.preventDefault();
-    e = e.originalEvent.changedTouches[0];
-  }
-  cx = e.offsetX;
-  cy = e.offsetY;
+  var rect = canvas.getBoundingClientRect();
+  cx = e.clientX - rect.left;
+  cy = e.clientY - rect.top;
 }
 
 function init(){
-  var ua =navigator.userAgent;
-  if(ua.indexOf('iPhone') > -1 || ua.indexOf('iPad') > -1 || ua.indexOf('iPod')  > -1){
-    var start = "touchstart";
-    var move  = "touchmove";
-  }else{
-    var start = "mousedown";
-    var move  = "mousemove";
-  }
+  var start = "pointerdown";
+  var move  = "pointermove";
   
   canvas = document.getElementById("maincanvas");
   ctx = canvas.getContext("2d");
@@ -75,6 +66,8 @@ function init(){
   canvas.addEventListener(move, function(e) {
     updateCursorPoint(e);
   }, false);
+  
+  window.addEventListener('touchmove', function(e) {e.preventDefault();},{passive: false});
   
   img.src = "p0.png";
   heartImg.src = "mask2.png";
