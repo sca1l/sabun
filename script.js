@@ -3,20 +3,22 @@ var interval;
 
 var cx,cy;
 var mode;
-var modeList = ["heart","star","top2mouse","bottom2mouse","left2mouse","right2mouse"];
+var modeList = ["heart","star","eraser","top2mouse","bottom2mouse","left2mouse","right2mouse"];
 const HEART = 0;
 const STAR = 1;
-const TOP2MOUSE = 2;
-const BOTTOM2MOUSE = 3;
-const LEFT2MOUSE = 4;
-const RIGHT2MOUSE = 5;
+const ERASER = 2;
+const TOP2MOUSE = 3;
+const BOTTOM2MOUSE = 4;
+const LEFT2MOUSE = 5;
+const RIGHT2MOUSE = 6;
 
 var img = new Image();
 var heartImg = new Image();
 var starImg = new Image();
+var circleImg = new Image();
 
 var maskScale = 0.5;
-
+var dragging = false;
 
 
 function resizeCanvas(){
@@ -44,6 +46,7 @@ function onLoadImg(){
   settingOverlay.style.display = "none";
   
   resizeCanvas();
+  drawForegroundImage();
 }
 
 function updateCursorPoint(e){
@@ -55,6 +58,7 @@ function updateCursorPoint(e){
 function init(){
   var start = "pointerdown";
   var move  = "pointermove";
+  var end   = "pointerup";
   
   canvas = document.getElementById("maincanvas");
   ctx = canvas.getContext("2d");
@@ -62,9 +66,14 @@ function init(){
   //マウスの座標更新
   canvas.addEventListener(start, function(e) {
     updateCursorPoint(e);
+    dragging = true;
   }, false);
   canvas.addEventListener(move, function(e) {
     updateCursorPoint(e);
+  }, false);
+  canvas.addEventListener(end, function(e) {
+    updateCursorPoint(e);
+    dragging = false;
   }, false);
   
   window.addEventListener('touchmove', function(e) {e.preventDefault();},{passive: false});
@@ -72,6 +81,7 @@ function init(){
   img.src = "p0.png";
   heartImg.src = "mask2.png";
   starImg.src = "mask1.png";
+  circleImg.src = "mask3.png";
   
   mode = 0;
   
@@ -148,10 +158,16 @@ function process(){
   
 }
 
+function drawForegroundImage(){
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+}
+
 function draw(){
   //描画状態の保存と全面画像の描画
   ctx.save();
-  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  if(mode != ERASER){
+    drawForegroundImage();
+  }
   
   //マスクのモード（丸投げ）
   switch(mode){
@@ -160,6 +176,11 @@ function draw(){
       break;
     case STAR:
       maskHollow(starImg);
+      break;
+    case ERASER:
+      if(dragging){
+        maskHollow(circleImg);
+      }
       break;
     case TOP2MOUSE:
       maskTop2mouse();
