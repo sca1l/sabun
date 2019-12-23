@@ -37,6 +37,8 @@ function resizeCanvas(){
     canvas.width = innerWidth;
     canvas.height = innerWidth*imageAspectRatio;
   }
+  var scale = canvas.width/img.width;
+  ctx.setTransform(scale, 0, 0, scale, 0, 0);
 }
 
 function onLoadImg(){
@@ -96,8 +98,6 @@ function init(){
   
   //モード更新（前回のが残るため）
   updateMode();
-  //表示領域の高さ、幅の取得
-  resizeCanvas();
   //準備終わり、ループのスタート
   interval = setInterval(process, 25);
 }
@@ -140,6 +140,9 @@ function updateMode(){
   //表示モードの切り替え
   var modeStr = form.mode.value;
   mode = modeList.indexOf(modeStr);
+  if(mode == ERASER){
+    drawForegroundImage();
+  }
 }
 
 function toggleOverlay() {
@@ -159,7 +162,7 @@ function process(){
 }
 
 function drawForegroundImage(){
-  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  ctx.drawImage(img, 0, 0, img.width, img.height);
 }
 
 function draw(){
