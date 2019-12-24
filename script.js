@@ -182,7 +182,7 @@ function draw(){
       break;
     case ERASER:
       if(dragging){
-        maskHollow(circleImg);
+        maskDraw(66);
       }
       break;
     case TOP2MOUSE:
@@ -206,6 +206,14 @@ function draw(){
 function maskHollow(maskImg){
   ctx.globalCompositeOperation = 'destination-out';
   ctx.drawImage(maskImg, cx-maskImg.width/2*maskScale, cy-maskImg.height/2*maskScale, maskImg.width*maskScale, maskImg.height*maskScale);
+}
+
+function maskDraw(penSize){
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.fillStyle = 'red'
+  ctx.beginPath();
+  ctx.arc(cx, cy, penSize/2, 0, Math.PI*2, false);
+  ctx.fill();
 }
 
 function maskTop2mouse(){
