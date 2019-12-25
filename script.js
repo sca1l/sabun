@@ -211,7 +211,7 @@ function draw(){
 
 function maskHollow(maskImg){
   ctx.globalCompositeOperation = 'destination-out';
-  ctx.drawImage(maskImg, cx-maskImg.width/2*maskScale, cy-maskImg.height/2*maskScale, maskImg.width*maskScale, maskImg.height*maskScale);
+  ctx.drawImage(maskImg, cx-maskImg.width/2/scale*maskScale, cy-maskImg.height/2/scale*maskScale, maskImg.width/scale*maskScale, maskImg.height/scale*maskScale);
 }
 
 function maskDraw(penSize){
