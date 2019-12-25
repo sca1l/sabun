@@ -1,4 +1,5 @@
 var canvas,ctx;
+var erasertmp;
 var interval;
 
 var cx,cy;
@@ -40,6 +41,9 @@ function resizeCanvas(){
   }
   scale = canvas.width/img.width;
   ctx.setTransform(scale, 0, 0, scale, 0, 0);
+  
+  //戻し
+  ctx.drawImage(erasertmp, 0, 0, img.width, img.height);
 }
 
 function onLoadImg(){
@@ -65,6 +69,7 @@ function init(){
   
   canvas = document.getElementById("maincanvas");
   ctx = canvas.getContext("2d");
+  erasertmp = document.getElementById("erasertmp");
   
   //マウスの座標更新
   canvas.addEventListener(start, function(e) {
@@ -215,6 +220,8 @@ function maskDraw(penSize){
   ctx.beginPath();
   ctx.arc(cx, cy, penSize/2, 0, Math.PI*2, false);
   ctx.fill();
+  //退避
+  erasertmp.src = canvas.toDataURL();
 }
 
 function maskTop2mouse(){
