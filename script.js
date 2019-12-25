@@ -2,6 +2,7 @@ var canvas,ctx;
 var interval;
 
 var cx,cy;
+var scale = 1;
 var mode;
 var modeList = ["heart","star","eraser","top2mouse","bottom2mouse","left2mouse","right2mouse"];
 const HEART = 0;
@@ -37,7 +38,7 @@ function resizeCanvas(){
     canvas.width = innerWidth;
     canvas.height = innerWidth*imageAspectRatio;
   }
-  var scale = canvas.width/img.width;
+  scale = canvas.width/img.width;
   ctx.setTransform(scale, 0, 0, scale, 0, 0);
 }
 
@@ -53,8 +54,8 @@ function onLoadImg(){
 
 function updateCursorPoint(e){
   var rect = canvas.getBoundingClientRect();
-  cx = e.clientX - rect.left;
-  cy = e.clientY - rect.top;
+  cx = (e.clientX - rect.left)/scale;
+  cy = (e.clientY - rect.top)/scale;
 }
 
 function init(){
@@ -218,20 +219,20 @@ function maskDraw(penSize){
 
 function maskTop2mouse(){
   ctx.globalCompositeOperation = 'destination-out';
-  ctx.fillRect(0, 0, canvas.width, cy);
+  ctx.fillRect(0, 0, img.width, cy);
 }
 
 function maskBottom2mouse(){
   ctx.globalCompositeOperation = 'destination-out';
-  ctx.fillRect(0, cy, canvas.width, canvas.height);
+  ctx.fillRect(0, cy, img.width, img.height);
 }
 
 function maskLeft2mouse(){
   ctx.globalCompositeOperation = 'destination-out';
-  ctx.fillRect(0, 0, cx, canvas.height);
+  ctx.fillRect(0, 0, cx, img.height);
 }
 
 function maskRight2mouse(){
   ctx.globalCompositeOperation = 'destination-out';
-  ctx.fillRect(cx, 0, canvas.width, canvas.height);
+  ctx.fillRect(cx, 0, img.width, img.height);
 }
