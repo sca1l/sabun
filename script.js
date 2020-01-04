@@ -1,7 +1,9 @@
 var canvas,ctx;
+var erasertmp;
 var interval;
 
 var cx,cy;
+var scale = 1;
 var mode;
 var modeList = ["heart","star","eraser","top2mouse","bottom2mouse","left2mouse","right2mouse"];
 const HEART = 0;
@@ -37,6 +39,11 @@ function resizeCanvas(){
     canvas.width = innerWidth;
     canvas.height = innerWidth*imageAspectRatio;
   }
+  scale = canvas.width/img.width;
+  ctx.setTransform(scale, 0, 0, scale, 0, 0);
+  
+  //戻し
+  ctx.drawImage(erasertmp, 0, 0, img.width, img.height);
 }
 
 function onLoadImg(){
@@ -51,8 +58,8 @@ function onLoadImg(){
 
 function updateCursorPoint(e){
   var rect = canvas.getBoundingClientRect();
-  cx = e.clientX - rect.left;
-  cy = e.clientY - rect.top;
+  cx = (e.clientX - rect.left)/scale;
+  cy = (e.clientY - rect.top)/scale;
 }
 
 function init(){
@@ -62,6 +69,7 @@ function init(){
   
   canvas = document.getElementById("maincanvas");
   ctx = canvas.getContext("2d");
+  erasertmp = document.getElementById("erasertmp");
   
   //マウスの座標更新
   canvas.addEventListener(start, function(e) {
@@ -96,8 +104,6 @@ function init(){
   
   //モード更新（前回のが残るため）
   updateMode();
-  //表示領域の高さ、幅の取得
-  resizeCanvas();
   //準備終わり、ループのスタート
   interval = setInterval(process, 25);
 }
@@ -137,19 +143,32 @@ function updatePath(){
 
 function updateMode(){
   var form = document.getElementById("setting");
+  var resetButton = document.getElementById("resetButton");
   //表示モードの切り替え
   var modeStr = form.mode.value;
   mode = modeList.indexOf(modeStr);
+  if(mode == ERASER){
+    drawForegroundImage();
+    resetButton.style.display = "block";
+  }else{
+    resetButton.style.display = "none";
+  }
 }
 
 function toggleOverlay() {
   var settingOverlay = document.getElementById("settingOverlay");
   var display = settingOverlay.style.display;
   if(display != "none"){
-      settingOverlay.style.display = "none";
+    settingOverlay.style.display = "none";
   }else{
-      settingOverlay.style.display = "block";
+    settingOverlay.style.display = "block";
   }
+}
+
+function eraserReset(){
+  //上書きしてすぐに退避
+  drawForegroundImage();
+  evacuateCanvasImage();
 }
 
 function process(){
@@ -159,7 +178,7 @@ function process(){
 }
 
 function drawForegroundImage(){
-  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  ctx.drawImage(img, 0, 0, img.width, img.height);
 }
 
 function draw(){
@@ -179,7 +198,7 @@ function draw(){
       break;
     case ERASER:
       if(dragging){
-        maskHollow(circleImg);
+        maskDraw(66);
       }
       break;
     case TOP2MOUSE:
@@ -202,25 +221,40 @@ function draw(){
 
 function maskHollow(maskImg){
   ctx.globalCompositeOperation = 'destination-out';
-  ctx.drawImage(maskImg, cx-maskImg.width/2*maskScale, cy-maskImg.height/2*maskScale, maskImg.width*maskScale, maskImg.height*maskScale);
+  ctx.drawImage(maskImg, cx-maskImg.width/2/scale*maskScale, cy-maskImg.height/2/scale*maskScale, maskImg.width/scale*maskScale, maskImg.height/scale*maskScale);
+}
+
+function maskDraw(penSize){
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.fillStyle = 'red'
+  ctx.beginPath();
+  ctx.arc(cx, cy, penSize/2, 0, Math.PI*2, false);
+  ctx.fill();
+  //退避
+  evacuateCanvasImage();
+}
+
+function evacuateCanvasImage(){
+  //描画中の画像の退避
+  erasertmp.src = canvas.toDataURL();
 }
 
 function maskTop2mouse(){
   ctx.globalCompositeOperation = 'destination-out';
-  ctx.fillRect(0, 0, canvas.width, cy);
+  ctx.fillRect(0, 0, img.width, cy);
 }
 
 function maskBottom2mouse(){
   ctx.globalCompositeOperation = 'destination-out';
-  ctx.fillRect(0, cy, canvas.width, canvas.height);
+  ctx.fillRect(0, cy, img.width, img.height);
 }
 
 function maskLeft2mouse(){
   ctx.globalCompositeOperation = 'destination-out';
-  ctx.fillRect(0, 0, cx, canvas.height);
+  ctx.fillRect(0, 0, cx, img.height);
 }
 
 function maskRight2mouse(){
   ctx.globalCompositeOperation = 'destination-out';
-  ctx.fillRect(cx, 0, canvas.width, canvas.height);
+  ctx.fillRect(cx, 0, img.width, img.height);
 }

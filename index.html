@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
     <title>sabun</title>
     <link rel="stylesheet" href="./style.css">
     <script src="./script.js"></script>
@@ -16,35 +16,37 @@
         <div id="settingOverlay">
           <form id="setting">
             <span class="explanation">
-              ※URLで画像を指定することができます。</br>
-              また[選択]ボタンを押すことでローカルファイルの選択もできます。</br>
+              ※URLで画像を指定することができます。<br>
+              また[選択]ボタンを押すことでローカルファイルの選択もできます。<br>
             </span>
             
             画像1:<input type="text" name="path_img0" value="p0.png" size="40">
-            <label class="inputFile">選択<input type="file" name="file0" onchange="fileChoosed(0)" accept="image/png, image/jpeg"></label></br>
+            <label class="inputFile">選択<input type="file" name="file0" onchange="fileChoosed(0)" accept="image/png, image/jpeg"></label><br>
             画像2:<input type="text" name="path_img1" value="p1.png" size="40">
-            <label class="inputFile">選択<input type="file" name="file1" onchange="fileChoosed(1)" accept="image/png, image/jpeg"></label></br>
+            <label class="inputFile">選択<input type="file" name="file1" onchange="fileChoosed(1)" accept="image/png, image/jpeg"></label><br>
             
             <input type="radio" name="order" value="natural" checked="checked">画像1を前面に
-            <input type="radio" name="order" value="reverse">画像2を前面に</br>
-            <input type="button" value="画像の更新" onclick="updatePath()"></br>
-            </br>
-            モード:</br>
-            <input type="radio" name="mode" onchange="updateMode()" value="heart" checked="checked">[heart]</br>
-            <span class="explanation">（ハート形でくり抜きます）</span></br>
-            <input type="radio" name="mode" onchange="updateMode()" value="star">[star]</br>
-            <span class="explanation">（星形でくり抜きます）</span></br>
-            <input type="radio" name="mode" onchange="updateMode()" value="eraser">[eraser]</br>
-            <span class="explanation">（消しゴムみたいに消えていきます）</span></br>
-            <input type="radio" name="mode" onchange="updateMode()" value="top2mouse">top→mouse</br>
-            <span class="explanation">（画像の上からマウス位置までを非表示）</span></br>
-            <input type="radio" name="mode" onchange="updateMode()" value="bottom2mouse">bottom→mouse</br>
-            <span class="explanation">（画像の下からマウス位置までを非表示）</span></br>
-            <input type="radio" name="mode" onchange="updateMode()" value="left2mouse">left→mouse</br>
-            <span class="explanation">（画像の左からマウス位置までを非表示）</span></br>
-            <input type="radio" name="mode" onchange="updateMode()" value="right2mouse">right→mouse</br>
-            <span class="explanation">（画像の右からマウス位置までを非表示）</br>
-            </br>
+            <input type="radio" name="order" value="reverse">画像2を前面に<br>
+            <input type="button" value="画像の更新" onclick="updatePath()"><br>
+            <br>
+            モード:<br>
+            <input type="radio" name="mode" onchange="updateMode()" value="heart" checked="checked">[heart]<br>
+            <span class="explanation">（ハート形でくり抜きます）</span><br>
+            <input type="radio" name="mode" onchange="updateMode()" value="star">[star]<br>
+            <span class="explanation">（星形でくり抜きます）</span><br>
+            <input type="radio" name="mode" onchange="updateMode()" value="eraser">[eraser]<br>
+            <span class="explanation">（消しゴムみたいに消えていきます）</span><br>
+            <input type="radio" name="mode" onchange="updateMode()" value="top2mouse">top→mouse<br>
+            <span class="explanation">（画像の上からマウス位置までを非表示）</span><br>
+            <input type="radio" name="mode" onchange="updateMode()" value="bottom2mouse">bottom→mouse<br>
+            <span class="explanation">（画像の下からマウス位置までを非表示）</span><br>
+            <input type="radio" name="mode" onchange="updateMode()" value="left2mouse">left→mouse<br>
+            <span class="explanation">（画像の左からマウス位置までを非表示）</span><br>
+            <input type="radio" name="mode" onchange="updateMode()" value="right2mouse">right→mouse<br>
+            <span class="explanation">
+              （画像の右からマウス位置までを非表示）<br>
+            </span>
+            <br>
           </form>
         </div>
       </section>
@@ -56,9 +58,20 @@
         </div>
       </section>
       
+      <!-- ERASERモード時のリセットボタン -->
+      <section>
+        <div id="resetButton" onclick="eraserReset()">
+          Reset
+        </div>
+      </section>
+      
       <section>
         <canvas id="maincanvas">
         </canvas>
+      </section>
+      
+      <section>
+        <img src="" id="erasertmp">
       </section>
     </main>
   </body>
