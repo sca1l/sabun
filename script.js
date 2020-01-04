@@ -161,6 +161,12 @@ function toggleOverlay() {
   }
 }
 
+function eraserReset(){
+  //上書きしてすぐに退避
+  drawForegroundImage();
+  evacuateCanvasImage();
+}
+
 function process(){
   //描画
   draw();
