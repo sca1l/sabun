@@ -143,11 +143,15 @@ function updatePath(){
 
 function updateMode(){
   var form = document.getElementById("setting");
+  var resetButton = document.getElementById("resetButton");
   //表示モードの切り替え
   var modeStr = form.mode.value;
   mode = modeList.indexOf(modeStr);
   if(mode == ERASER){
     drawForegroundImage();
+    resetButton.style.display = "block";
+  }else{
+    resetButton.style.display = "none";
   }
 }
 
