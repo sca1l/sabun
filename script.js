@@ -221,6 +221,11 @@ function maskDraw(penSize){
   ctx.arc(cx, cy, penSize/2, 0, Math.PI*2, false);
   ctx.fill();
   //退避
+  evacuateCanvasImage();
+}
+
+function evacuateCanvasImage(){
+  //描画中の画像の退避
   erasertmp.src = canvas.toDataURL();
 }
 
