@@ -67,7 +67,7 @@ html,body{
 	margin-right: auto;
 	height: 100%;
 	display: block;
-	cursor: none;
+	/*cursor: none;*/
 	background: url('p1.png');
 	background-size: contain;
 }
