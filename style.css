@@ -27,7 +27,7 @@ html,body{
 	text-align: center;
 	color: #FFF;
 	position: fixed;
-	z-index: 999;
+	z-index: 998;
 	cursor: pointer;
 	background: rgba(0, 0, 0, 0.4);
 }
