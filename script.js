@@ -155,9 +155,9 @@ function toggleOverlay() {
   var settingOverlay = document.getElementById("settingOverlay");
   var display = settingOverlay.style.display;
   if(display != "none"){
-      settingOverlay.style.display = "none";
+    settingOverlay.style.display = "none";
   }else{
-      settingOverlay.style.display = "block";
+    settingOverlay.style.display = "block";
   }
 }
 
