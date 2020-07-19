@@ -82,6 +82,8 @@ function init(){
   canvas.addEventListener(end, function(e) {
     updateCursorPoint(e);
     dragging = false;
+    //pointerupのタイミングで退避
+    evacuateCanvasImage();
   }, false);
   
   window.addEventListener('touchmove', function(e) {e.preventDefault();},{passive: false});
@@ -230,8 +232,6 @@ function maskDraw(penSize){
   ctx.beginPath();
   ctx.arc(cx, cy, penSize/2, 0, Math.PI*2, false);
   ctx.fill();
-  //退避
-  evacuateCanvasImage();
 }
 
 function evacuateCanvasImage(){
